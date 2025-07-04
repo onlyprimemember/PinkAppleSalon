@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pink Apple Salon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@400;500;600&display=swap');
+
+body {
+  font-family: 'Poppins', Comic Neue;
+  background: linear-gradient(135deg, #ffe6f0, #ffd6f5, #fcd9ff);
+  color: #2d033b;
+  min-height: 100vh;
+}
+
+.wheel {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 6px solid #ff69b4;
+  box-shadow: 0 0 35px rgba(255, 105, 180, 0.8), 0 0 60px rgba(255, 182, 193, 0.6);
+  animation: spin 2s ease-out;
+}
+
+.wheel .slice {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  transform-origin: 100% 100%;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.pointer {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 24px solid #ff69b4;
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.glass-card {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 192, 203, 0.3);
+  border-radius: 1.5rem;
+  box-shadow: 0 0 40px rgba(255, 182, 193, 0.3), 0 0 80px rgba(255, 192, 203, 0.2);
+  padding: 2rem;
+  border: 1px solid rgba(255, 182, 193, 0.3);
+}
+
+input, select {
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #4a004e;
+  border: 1px solid rgba(255, 105, 180, 0.4);
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-color: #ff69b4;
+  box-shadow: 0 0 10px #ffb3d9;
+  outline: none;
+}
+
+select option {
+  background-color: #fff0f5;
+  color: #4a004e;
+}
+
+::placeholder {
+  color: #a64d79;
+}
+
+button {
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 10px #ff99cc;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+}
+
+@keyframes spin {
+  from { transform: rotate(0); }
+  to { transform: rotate(1440deg); }
+}
+  </style>
+
+
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+ <div class="w-full max-w-md bg-white border-4 border-pink-900 rounded-2xl shadow-lg p-6">
+  <h1 class="text-4xl text-center text-pink-700 mb-2 tracking-wide" style="font-family: 'Open Sans', sans-serif;">PINK APPLE SALON</h1>
+  <p class="text-center text-sm italic mb-6 text-pink-700">Elegance Redefined</p>
+
+
+    <input id="customerName" type="text" placeholder="Your Name" class="w-full p-3 border border-pink-300 rounded-lg mb-2 focus:outline-amber-400">
+    <input id="customerPhone" type="tel" placeholder="WhatsApp Number" class="w-full p-3 border border-pink-300 rounded-lg mb-2" maxlength="10">
+    <label for="appointmentDate" class="text-sm text-pink-900 font-medium mb-1 block">Appointment Date</label>
+    <input id="appointmentDate" type="date" class="w-full p-3 border border-pink-300 rounded-lg mb-3">
+
+ <!-- Appointment Time Dropdown -->
+<select id="appointmentTime"
+  class="w-full p-3 border border-pink-400 rounded-full mb-4 text-pink-700 bg-white placeholder-pink-500 focus:outline-none focus:border-pink-600 focus:ring-2 focus:ring-pink-300 transition-all duration-200 ease-in-out">
+  <option value="">-- Select Time --</option>
+  <option style="background-color: white; color: #be185d;">08:00 AM</option>
+  <option style="background-color: white; color: #be185d;">08:30 AM</option>
+  <option style="background-color: white; color: #be185d;">09:00 AM</option>
+  <option style="background-color: white; color: #be185d;">09:30 AM</option>
+  <option style="background-color: white; color: #be185d;">10:00 AM</option>
+  <option style="background-color: white; color: #be185d;">10:30 AM</option>
+  <option style="background-color: white; color: #be185d;">11:00 AM</option>
+  <option style="background-color: white; color: #be185d;">11:30 AM</option>
+  <option style="background-color: white; color: #be185d;">12:00 PM</option>
+  <option style="background-color: white; color: #be185d;">12:30 PM</option>
+  <option style="background-color: white; color: #be185d;">01:00 PM</option>
+  <option style="background-color: white; color: #be185d;">01:30 PM</option>
+  <option style="background-color: white; color: #be185d;">02:00 PM</option>
+  <option style="background-color: white; color: #be185d;">02:30 PM</option>
+  <option style="background-color: white; color: #be185d;">03:00 PM</option>
+  <option style="background-color: white; color: #be185d;">03:30 PM</option>
+  <option style="background-color: white; color: #be185d;">04:00 PM</option>
+  <option style="background-color: white; color: #be185d;">04:30 PM</option>
+  <option style="background-color: white; color: #be185d;">05:00 PM</option>
+  <option style="background-color: white; color: #be185d;">05:30 PM</option>
+  <option style="background-color: white; color: #be185d;">06:00 PM</option>
+  <option style="background-color: white; color: #be185d;">06:30 PM</option>
+  <option style="background-color: white; color: #be185d;">07:00 PM</option>
+  <option style="background-color: white; color: #be185d;">07:30 PM</option>
+  <option style="background-color: white; color: #be185d;">08:00 PM</option>
+  <option style="background-color: white; color: #be185d;">08:30 PM</option>
+  <option style="background-color: white; color: #be185d;">09:00 PM</option>
+</select>
+
+<select id="serviceSelect"
+  class="w-full p-3 border border-pink-400 rounded-full mb-4 bg-white text-pink-700 placeholder-pink-500 focus:outline-none focus:border-pink-600 focus:ring-2 focus:ring-pink-300 transition-all duration-200 ease-in-out">
+  <option value="">-- Choose Service --</option>
+
+<!-- HAIR -->
+<option disabled style="font-weight:bold;">-- Hair --</option>
+<option value="Hair Cut:250" style="background-color: white; color: #be185d;">Hair Cut - ₹250</option>
+<option value="Hair Cut + Hair Wash + Blow Dry:350" style="background-color: white; color: #be185d;">Hair Cut + Hair Wash + Blow Dry - ₹350</option>
+<option value="Normal Hair Spa:1000" style="background-color: white; color: #be185d;">Normal Hair Spa - ₹1000</option>
+<option value="Dandruff Treatment:500" style="background-color: white; color: #be185d;">Dandruff Treatment - ₹500</option>
+<option value="Protein Hair Spa:1500" style="background-color: white; color: #be185d;">Protein Hair Spa - ₹1500</option>
+
+<!-- BEAUTY -->
+<option disabled style="font-weight:bold;">-- Beauty --</option>
+<option value="Threading:30" style="background-color: white; color: #be185d;">Threading - ₹30</option>
+<option value="Upper Lip:10" style="background-color: white; color: #be185d;">Upper Lip - ₹10</option>
+<option value="Forehead:10" style="background-color: white; color: #be185d;">Forehead - ₹10</option>
+<option value="Chin:10" style="background-color: white; color: #be185d;">Chin - ₹10</option>
+<option value="Side Locks:70" style="background-color: white; color: #be185d;">Side Locks - ₹70</option>
+<option value="Full Face:150" style="background-color: white; color: #be185d;">Full Face - ₹150</option>
+
+<!-- D-TAN -->
+<option disabled style="font-weight:bold;">-- D-Tan --</option>
+<option value="Raga D-tan:350" style="background-color: white; color: #be185d;">Raga D-tan - ₹350</option>
+<option value="Tan Eraser D-tan:550" style="background-color: white; color: #be185d;">Tan Eraser D-tan - ₹550</option>
+<option value="Full Body D-tan:1500" style="background-color: white; color: #be185d;">Full Body D-tan - ₹1500</option>
+
+<!-- BLEACH -->
+<option disabled style="font-weight:bold;">-- Bleach --</option>
+<option value="Face Bleach:350" style="background-color: white; color: #be185d;">Face Bleach - ₹350</option>
+<option value="Full Body Bleach:1500" style="background-color: white; color: #be185d;">Full Body Bleach - ₹1500</option>
+
+<!-- CLEANUP -->
+<option disabled style="font-weight:bold;">-- Cleanup --</option>
+<option value="Fruit Cleanup:350" style="background-color: white; color: #be185d;">Fruit Cleanup - ₹350</option>
+<option value="Coffee Cleanup:350" style="background-color: white; color: #be185d;">Coffee Cleanup - ₹350</option>
+
+<!-- POLISHING -->
+<option disabled style="font-weight:bold;">-- Polishing --</option>
+<option value="Full Body Polishing:1900" style="background-color: white; color: #be185d;">Full Body Polishing - ₹1900</option>
+<option value="Full Body Massage:1000" style="background-color: white; color: #be185d;">Full Body Massage - ₹1000</option>
+
+<!-- TREATMENT -->
+<option disabled style="font-weight:bold;">-- Treatment --</option>
+<option value="Straightening:3000" style="background-color: white; color: #be185d;">Straightening - ₹3000</option>
+<option value="Smoothing:2500" style="background-color: white; color: #be185d;">Smoothing - ₹2500</option>
+<option value="Keratin:3000" style="background-color: white; color: #be185d;">Keratin - ₹3000</option>
+<option value="Botox:6000" style="background-color: white; color: #be185d;">Botox - ₹6000</option>
+<option value="Nanoplastia:3000" style="background-color: white; color: #be185d;">Nanoplastia - ₹3000</option>
+
+<!-- WAXING -->
+<option disabled style="font-weight:bold;">-- Waxing --</option>
+<option value="Full Hands Normal:150" style="background-color: white; color: #be185d;">Full Hands Normal - ₹150</option>
+<option value="Under Arms:80" style="background-color: white; color: #be185d;">Under Arms - ₹80</option>
+<option value="Full Leg:500" style="background-color: white; color: #be185d;">Full Leg - ₹500</option>
+<option value="Half Leg:250" style="background-color: white; color: #be185d;">Half Leg - ₹250</option>
+
+<!-- RICA WAX -->
+<option disabled style="font-weight:bold;">-- Rica Wax --</option>
+<option value="Full Hands Rica:350" style="background-color: white; color: #be185d;">Full Hands - ₹350</option>
+<option value="Under Arms Rica:100" style="background-color: white; color: #be185d;">Under Arms - ₹100</option>
+<option value="Full Leg Rica:750" style="background-color: white; color: #be185d;">Full Leg - ₹750</option>
+<option value="Half Leg Rica:350" style="background-color: white; color: #be185d;">Half Leg - ₹350</option>
+<option value="Full Body Waxing Honey:2000" style="background-color: white; color: #be185d;">Full Body Honey - ₹2000</option>
+<option value="Rica Full Body Waxing:2500" style="background-color: white; color: #be185d;">Full Body Rica - ₹2500</option>
+<option value="Bikini Waxing Rica:1000" style="background-color: white; color: #be185d;">Bikini Rica - ₹1000</option>
+<option value="Brazilian Peel-Off:1500" style="background-color: white; color: #be185d;">Brazilian Peel-Off - ₹1500</option>
+
+<!-- FACIAL -->
+<option disabled style="font-weight:bold;">-- Facial --</option>
+<option value="Hydra Facial:2500" style="background-color: white; color: #be185d;">Hydra Facial - ₹2500</option>
+<option value="Sara Diamond Facial:1500" style="background-color: white; color: #be185d;">Sara Diamond - ₹1500</option>
+<option value="O3 Facial:2000" style="background-color: white; color: #be185d;">O3 Facial - ₹2000</option>
+<option value="Rica Feel Facial:1000" style="background-color: white; color: #be185d;">Rica Feel - ₹1000</option>
+<option value="Lotus Facial:1000" style="background-color: white; color: #be185d;">Lotus - ₹1000</option>
+<option value="Lotus Diamond Facial:1500" style="background-color: white; color: #be185d;">Lotus Diamond - ₹1500</option>
+<option value="Mohtarma Facial 24k Gold:1000" style="background-color: white; color: #be185d;">24k Gold Mohtarma - ₹1000</option>
+<option value="Mix Fruit Mohtarma Facial:550" style="background-color: white; color: #be185d;">Mix Fruit Mohtarma - ₹550</option>
+<option value="Wine Facial:1000" style="background-color: white; color: #be185d;">Wine Facial - ₹1000</option>
+<option value="Rice Feel Facial:1000" style="background-color: white; color: #be185d;">Rice Feel Facial - ₹1000</option>
+
+<!-- HAIR COLOUR -->
+<option disabled style="font-weight:bold;">-- Hair Colour --</option>
+<option value="Root Touch Up:1300" style="background-color: white; color: #be185d;">Root Touch Up - ₹1300</option>
+<option value="Global Hair Colour:3000" style="background-color: white; color: #be185d;">Global Hair Colour - ₹3000</option>
+<option value="Fashion Global Colour:3000" style="background-color: white; color: #be185d;">Fashion Global - ₹3000</option>
+<option value="Balayage Colour:3000" style="background-color: white; color: #be185d;">Balayage Colour - ₹3000</option>
+<option value="Ombre Colour:2500" style="background-color: white; color: #be185d;">Ombre Colour - ₹2500</option>
+<option value="Global Highlights:4000" style="background-color: white; color: #be185d;">Global Highlights - ₹4000</option>
+<option value="Highlights 1 Strip:350" style="background-color: white; color: #be185d;">Highlights 1 Strip - ₹350</option>
+<option value="Funky Colour:550" style="background-color: white; color: #be185d;">Funky Colour - ₹550/strip</option>
+
+</select>
+
+
+
+    <button onclick="addService()" class="w-full bg-pink-400 hover:bg-pink-500 text-black font-semibold py-2 rounded-lg mb-3 transition">+ Add Service</button>
+
+    <div id="cart" class="text-sm mb-2 text-pink-900	"></div>
+    <div id="totalBox" class="text-lg font-semibold mb-4 text-pink-900">Total: ₹0</div>
+
+    <button onclick="triggerSpinWheel()" class="w-full bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg text-lg font-semibold transition">🎉 Get Instant Discount</button>
+  </div>
+
+  <!-- Spin Wheel Modal -->
+  <div id="spinModal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+    <div class="glass-card text-center relative max-w-sm">
+      <div class="pointer"></div>
+      <div class="wheel mx-auto mb-4 relative" id="wheelContainer"></div>
+      <h2 class="text-xl font-bold text-pink-300 mb-2">🎊 Yay! Congratulations You Get Massive Discount ! Your Final Amount: ₹<span id="finalAmount"></span></h2>
+      <p class="mb-2 text-pink-200">Services: <span id="finalServices" class="text-sm"></span></p>
+      <button onclick="continueToWhatsApp()" class="mt-4 bg-pink-400 hover:bg-pink-500 text-black px-5 py-2 rounded-lg transition">Lock Appointment</button>
+    </div>
+  </div>
+
+  <script>
+    let selectedServices = [];
+    let totalAmount = 0;
+    let discountedAmount = 0;
+    let finalDiscount = 0;
+
+    function addService() {
+      const select = document.getElementById("serviceSelect");
+      const value = select.value;
+      if (value && !selectedServices.includes(value)) {
+        selectedServices.push(value);
+        updateCart();
+      }
+    }
+
+    function updateCart() {
+      const cart = document.getElementById("cart");
+      let total = 0;
+      const list = selectedServices.map(s => {
+        const [name, price] = s.split(":");
+        total += parseInt(price);
+        return `${name} - ₹${price}`;
+      });
+      totalAmount = total;
+      cart.innerHTML = `<strong>Selected Services:</strong><br>${list.join("<br>")}`;
+      document.getElementById("totalBox").textContent = `Total: ₹${total}`;
+    }
+
+    function triggerSpinWheel() {
+      if (selectedServices.length === 0) return alert("Please select at least one service.");
+      const phone = document.getElementById("customerPhone").value.trim();
+      const time = document.getElementById("appointmentTime").value;
+      if (phone.length !== 10 || !/^[0-9]{10}$/.test(phone)) return alert("Enter valid 10-digit mobile number.");
+      if (!time) return alert("Please select a time.");
+
+      spinTheWheel();
+      document.getElementById("spinModal").classList.remove("hidden");
+    }
+
+    function spinTheWheel() {
+      const wheel = document.getElementById("wheelContainer");
+      wheel.innerHTML = "";
+      const colors = ['#f7c59f', '#ddb892', '#b08968', '#7f5539', '#3e2723', '#d4af37'];
+      const discounts = [5, 10, 15, 20, 25, 30];
+      const anglePerSlice = 360 / 6;
+
+      discounts.forEach((discount, i) => {
+        const slice = document.createElement("div");
+        slice.className = "slice";
+        slice.style.backgroundColor = colors[i];
+        slice.style.transform = `rotate(${i * anglePerSlice}deg) skewY(-60deg)`;
+        wheel.appendChild(slice);
+      });
+
+      const selectedIndex = Math.floor(Math.random() * 6);
+      finalDiscount = discounts[selectedIndex];
+      const discountAmount = Math.floor(totalAmount * finalDiscount / 100);
+      discountedAmount = totalAmount - discountAmount;
+
+      setTimeout(() => {
+        document.getElementById("finalAmount").innerText = discountedAmount;
+        document.getElementById("finalServices").innerText = selectedServices.map(s => s.split(":")[0]).join(", ");
+        confetti({ particleCount: 120, spread: 70, origin: { y: 0.5 } });
+      }, 1000);
+    }
+
+    function continueToWhatsApp() {
+      const name = document.getElementById("customerName").value;
+      const phone = document.getElementById("customerPhone").value;
+      const rawDate = document.getElementById("appointmentDate").value;
+      const [yyyy, mm, dd] = rawDate.split("-");
+      const date = `${dd}-${mm}-${yyyy}`;
+      const time = document.getElementById("appointmentTime").value;
+      const services = selectedServices.map(s => s.split(":")[0]).join(", ");
+      const msg = `Name: ${name}%0APhone: ${phone}%0ADate: ${date}%0ATime: ${time}%0AServices: ${services}%0ATotal After Spin: ₹${discountedAmount}`;
+
+      saveToSheet(name, phone, date, time, services, totalAmount, finalDiscount, discountedAmount);
+
+      setTimeout(() => {
+        window.location.href = `https://api.whatsapp.com/send?phone=918999360525&text=${msg}`;
+      }, 2000);
+    }
+
+    function saveToSheet(name, phone, date, time, services, total, discount, finalAmount) {
+      fetch("https://script.google.com/macros/s/AKfycbzkU8T0fcGYXx-gr4JemG8LxwszkOxkM5iOmsdUUZCYkGiqRZybUJnpK_t_PiBuYWahrQ/exec", {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ name, phone, date, time, services, total, discountPercent: discount, discounted: finalAmount })
+      })
+      .then(r => r.json())
+      .then(res => console.log("✅ Saved:", res))
+      .catch(err => console.error("❌ Save error:", err));
+    }
+  </script>
+
+</body>
+</html>
